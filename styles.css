@@ -8,7 +8,7 @@
 @media print{.site-header,.resource-links,.video-label,.tabs,.clip-controls,.site-footer{display:none!important}.section-shell{width:100%}.chapter{padding:25px 0}.tab-panel[hidden]{display:block!important}.video-frame{break-inside:avoid}.intro{padding-top:0}body{background:#fff}}
 
 /* Four-rollout teaser: full external camera beside tightly cropped tactile fields. */
-.hero-figure .teaser-video video{aspect-ratio:44/15}.hero-figure figcaption strong{font-weight:600;color:var(--ink)}
+.hero-figure .teaser-video video{aspect-ratio:209/75}.hero-figure figcaption strong{font-weight:600;color:var(--ink)}
 
 /* Characterization figure supplied with the updated sensor media. */
 .signal-figure{max-width:900px;margin:32px auto 0;padding:22px;background:#fff;border:1px solid var(--line);border-radius:9px}.signal-figure img{height:auto}.signal-figure figcaption{max-width:700px;margin:14px auto 0}.light-video video{aspect-ratio:1540/884}
