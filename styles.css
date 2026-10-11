@@ -8,7 +8,7 @@
 @media print{.site-header,.resource-links,.video-label,.tabs,.clip-controls,.site-footer{display:none!important}.section-shell{width:100%}.chapter{padding:25px 0}.tab-panel[hidden]{display:block!important}.video-frame{break-inside:avoid}.intro{padding-top:0}body{background:#fff}}
 
 /* Four-rollout teaser: full external camera beside tightly cropped tactile fields. */
-.hero-figure .teaser-video video{aspect-ratio:8/3}.hero-figure figcaption strong{font-weight:600;color:var(--ink)}
+.hero-figure .teaser-video video{aspect-ratio:44/15}.hero-figure figcaption strong{font-weight:600;color:var(--ink)}
 
 /* Characterization figure supplied with the updated sensor media. */
 .signal-figure{max-width:900px;margin:32px auto 0;padding:22px;background:#fff;border:1px solid var(--line);border-radius:9px}.signal-figure img{height:auto}.signal-figure figcaption{max-width:700px;margin:14px auto 0}.light-video video{aspect-ratio:1540/884}
@@ -25,3 +25,5 @@
 .failure-section{background:#f0ece6}.failure-carousel{margin-top:0}.carousel-window{position:relative}.carousel-track{position:relative;display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:10%;padding:12px 10% 18px;scrollbar-width:none;overscroll-behavior-x:contain}.carousel-track::-webkit-scrollbar{display:none}.carousel-slide{flex:0 0 100%;min-width:0;scroll-snap-align:center;background:#fff;border-radius:13px;padding:10px;box-shadow:0 5px 18px #28233012;transition:opacity .2s;opacity:.5}.carousel-slide.is-current{opacity:1}.carousel-slide .video-frame{background:#fff}.carousel-slide video{aspect-ratio:16/9}.carousel-arrow{display:none;position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:42px;height:42px;border:0;border-radius:50%;background:#282330b8;color:white;font:34px/1 Georgia,serif;align-items:center;justify-content:center}.js .carousel-arrow{display:flex}.carousel-prev{left:1%}.carousel-next{right:1%}.carousel-arrow:disabled{opacity:.25;cursor:default}.carousel-dots{display:none;justify-content:center;gap:5px;margin-top:3px}.js .carousel-dots{display:flex}.carousel-dots button{border:0;background:transparent;width:30px;height:34px;padding:0;display:grid;place-items:center}.carousel-dots button::after{content:'';width:10px;height:10px;border-radius:50%;background:#bbb6bd}.carousel-dots button[aria-current=true]::after{background:var(--purple)}html:not(.js) .carousel-slide{opacity:1}
 @media(max-width:640px){.nav-links{gap:11px}.carousel-track{gap:12px;padding-inline:6%;scroll-padding-inline:6%}.carousel-slide{padding:5px;border-radius:9px}.carousel-arrow{width:32px;height:32px;font-size:26px}.carousel-prev{left:0}.carousel-next{right:0}}
 @media(prefers-reduced-motion:reduce){.carousel-slide{transition:none}}
+
+.hero-figure #teaser-caption{font-size:18px;color:var(--ink);margin-top:12px}
