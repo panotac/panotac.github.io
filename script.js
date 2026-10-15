@@ -62,7 +62,7 @@ function syncPlayback() {
     if (!visible) { pauseManaged(video); continue; }
     if (!video.defaultMuted) continue; // Sonification remains a user-started, audible demo.
     if (soundPlaying) { pauseManaged(video); continue; }
-    if (reducedMotion.matches || userPaused.has(video) || !video.paused || pendingPlay.has(video)) continue;
+    if (video.hasAttribute('data-manual-play') || reducedMotion.matches || userPaused.has(video) || !video.paused || pendingPlay.has(video)) continue;
     video.muted = true;
     pendingPlay.add(video);
     video.play().catch(() => {}).finally(() => {

@@ -27,3 +27,32 @@
 @media(prefers-reduced-motion:reduce){.carousel-slide{transition:none}}
 
 .hero-figure #teaser-caption{font-size:18px;color:var(--ink);margin-top:12px}
+
+/* Hardware overview: all four media visible in reading order. */
+.sensor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 28px;margin-top:36px}
+.sensor-card{min-width:0}
+.sensor-grid .video-frame,.sensor-image{aspect-ratio:16/9;border-radius:9px;overflow:hidden}
+.sensor-grid .video-frame video{width:100%;height:100%;aspect-ratio:16/9;object-fit:contain}
+.sensor-image{display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line);padding:16px}
+.sensor-image img{width:100%;height:100%;object-fit:contain}
+.sensor-card figcaption{color:var(--muted);font-size:12px;line-height:1.6;margin-top:12px}
+@media(max-width:640px){.sensor-grid{grid-template-columns:1fr;gap:26px;margin-top:27px}.sensor-image{padding:12px}}
+
+#sensor{scroll-margin-top:70px}
+
+.characterization-section{padding-bottom:70px;scroll-margin-top:90px}
+.characterization-section .signal-figure{width:100%;max-width:none;margin:0;padding:0;border:0;background:transparent}
+.characterization-section .signal-figure img{width:100%;height:auto}
+@media(max-width:640px){.characterization-section{padding-bottom:44px}}
+
+/* Group hardware construction separately from signal interpretation. */
+.sensor-group{margin-top:38px}
+.sensor-group h3{font-family:var(--sans);font-size:18px;font-weight:600;line-height:1.4;letter-spacing:0}
+.sensor-group .sensor-grid{margin-top:22px}
+.sensor-group+.sensor-group{margin-top:48px;padding-top:34px;border-top:1px solid var(--line)}
+@media(max-width:640px){.sensor-group{margin-top:30px}.sensor-group h3{font-size:17px}.sensor-group .sensor-grid{margin-top:18px}.sensor-group+.sensor-group{margin-top:36px;padding-top:28px}}
+
+/* Keep the hardware heading and its supporting line together. */
+#sensor .section-heading .eyebrow{margin-bottom:12px}
+#sensor .section-heading h2{line-height:1.12}
+#sensor .section-deck{margin-top:8px;line-height:1.5}
