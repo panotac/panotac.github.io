@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/panotac-favicon-32.png?v=grid-arrows-yellow-v2">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/panotac-favicon-16.png?v=grid-arrows-yellow-v2">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/panotac-apple-touch-icon.png?v=grid-arrows-yellow-v2">
-  <link rel="stylesheet" href="styles.css?v=title-logo-v2">
+  <link rel="stylesheet" href="styles.css?v=capabilities-release-v1">
   <script src="script.js?v=sensor-heading-v5" defer></script>
 </head>
 <body>
@@ -58,22 +58,18 @@
   </section>
 
   <section id="manipulation" class="chapter task-section" aria-labelledby="manipulation-title"><div class="section-shell">
-    <div class="section-heading"><span class="eyebrow">02 / Touch in action</span><h2 id="manipulation-title">Three tasks. Different reasons to feel.</h2><p class="section-deck">Orientation, release, and weight — interaction cues that vision alone can miss.</p></div>
-    <div class="tabs task-tabs" role="tablist" aria-label="Manipulation tasks" data-tabs="tasks"><button id="tube-tab" type="button" role="tab" aria-selected="true" aria-controls="tube-panel" data-panel="tube-panel"><span class="tab-number">01</span> Test tube preparation</button><button id="grain-tab" type="button" role="tab" aria-selected="false" aria-controls="grain-panel" data-panel="grain-panel" tabindex="-1"><span class="tab-number">02</span> Grain scooping</button><button id="salt-tab" type="button" role="tab" aria-selected="false" aria-controls="salt-panel" data-panel="salt-panel" tabindex="-1"><span class="tab-number">03</span> Salt pouring</button></div>
-    <article id="tube-panel" class="tab-panel task-panel" role="tabpanel" aria-labelledby="tube-tab">
-      <div class="task-intro"><div><h3>Orient, insert, and detect release.</h3><p>Contact patterns help infer the tube’s in-hand orientation. Changes in loading help distinguish a stopper that is still engaged from one that has come free.</p></div><div class="task-stat"><strong>80<span>%</span></strong><span>Full-task success<br>20 rollouts</span></div></div>
-      <figure><div class="video-frame"><video controls muted playsinline preload="none" poster="assets/images/task-tube-success.jpg" aria-label="Autonomous test tube preparation at 2× speed"><source src="assets/videos/task-tube-success.webm" type="video/webm"><source src="assets/videos/task-tube-success.mp4" type="video/mp4"></video></div><figcaption>Autonomous · 2× speed. Grasp → reorient → insert → regrasp stopper → wiggle → extract.</figcaption></figure>
-      <div class="task-insight"><span>What touch contributes</span><p>Dense contact patterns support reorientation and insertion; shear feedback helps detect stopper release.</p></div>
+    <div class="section-heading"><span class="eyebrow">02 / Touch in action</span><h2 id="manipulation-title">Capability Experiments</h2></div>
+    <article id="tube-panel" class="capability-task" aria-labelledby="tube-title">
+      <div class="task-intro"><div><span class="step-number">01</span><h3 id="tube-title">Test tube preparation</h3><p>Tactile feedback guides tube reorientation and insertion, then detects stopper release during removal.</p></div><div class="task-stat"><strong>90<span>%</span></strong><span>Full-task success<br>18/20 rollouts</span></div></div>
+      <figure><div class="video-frame"><video controls muted playsinline preload="none" poster="assets/images/task-tube-success.jpg" aria-label="Autonomous test tube preparation at 2× speed"><source src="assets/videos/task-tube-success.webm" type="video/webm"><source src="assets/videos/task-tube-success.mp4" type="video/mp4"></video></div><figcaption>Autonomous · 2× speed.</figcaption></figure>
     </article>
-    <article id="grain-panel" class="tab-panel task-panel" role="tabpanel" aria-labelledby="grain-tab">
-      <div class="task-intro"><div><h3>Feel the handle. Choose the direction.</h3><p>The spoon bowl is occluded from the wrist camera after grasping. Contact patterns along the handle provide cues about the spoon’s orientation, while interaction feedback supports the scoop.</p></div><div class="task-stat"><strong>90<span>%</span></strong><span>Full-task success<br>20 rollouts</span></div></div>
-      <figure><div class="video-frame"><video controls muted playsinline preload="none" poster="assets/images/task-grain-success.jpg" aria-label="Two autonomous grain scooping demonstrations at 2× speed"><source src="assets/videos/task-grain-success.webm" type="video/webm"><source src="assets/videos/task-grain-success.mp4" type="video/mp4"></video></div><figcaption>Autonomous · 2× speed. Two demonstrations: grasp → scoop → transfer and pour → return spoon.</figcaption></figure>
-      <div class="task-insight"><span>What touch contributes</span><p>Spatial contact patterns help select the scooping direction when the spoon bowl is hidden.</p></div>
+    <article id="grain-panel" class="capability-task" aria-labelledby="grain-title">
+      <div class="task-intro"><div><span class="step-number">02</span><h3 id="grain-title">Grain scooping</h3><p>Contact patterns reveal the occluded spoon’s orientation to guide scooping, transfer, and return.</p></div><div class="task-stat"><strong>85<span>%</span></strong><span>Full-task success<br>17/20 rollouts</span></div></div>
+      <figure><div class="video-frame"><video controls muted playsinline preload="none" poster="assets/images/task-grain-success.jpg" aria-label="Two autonomous grain scooping demonstrations at 2× speed"><source src="assets/videos/task-grain-success.webm" type="video/webm"><source src="assets/videos/task-grain-success.mp4" type="video/mp4"></video></div><figcaption>Autonomous · 2× speed.</figcaption></figure>
     </article>
-    <article id="salt-panel" class="tab-panel task-panel" role="tabpanel" aria-labelledby="salt-tab">
-      <div class="task-intro"><div><h3>Lift, sense, then pour or discard.</h3><p>An opaque bottle hides its contents. The robot must use loading cues after lifting to decide whether to pour salt or discard an empty bottle.</p></div><div class="task-stat"><strong>90<span>%</span></strong><span>Full-task success<br>20 rollouts</span></div></div>
-      <figure><div class="video-frame"><video controls muted playsinline preload="none" poster="assets/images/task-salt-success.jpg" aria-label="Autonomous salt pouring and empty bottle disposal at 2× speed"><source src="assets/videos/task-salt-success.webm" type="video/webm"><source src="assets/videos/task-salt-success.mp4" type="video/mp4"></video></div><figcaption>Autonomous · 2× speed. Pour from the filled bottle; discard the empty bottle.</figcaption></figure>
-      <div class="task-insight"><span>What touch contributes</span><p>Shear feedback provides weight cues from the opaque bottle, guiding the choice between pouring and discarding.</p></div>
+    <article id="salt-panel" class="capability-task" aria-labelledby="salt-title">
+      <div class="task-intro"><div><span class="step-number">03</span><h3 id="salt-title">Salt pouring</h3><p>Tactile weight cues distinguish filled from empty opaque bottles to decide whether to pour.</p></div><div class="task-stat"><strong>100<span>%</span></strong><span>Full-task success<br>20/20 rollouts</span></div></div>
+      <figure><div class="video-frame"><video controls muted playsinline preload="none" poster="assets/images/task-salt-success.jpg" aria-label="Autonomous salt pouring and empty bottle disposal at 2× speed"><source src="assets/videos/task-salt-success.webm" type="video/webm"><source src="assets/videos/task-salt-success.mp4" type="video/mp4"></video></div><figcaption>Autonomous · 2× speed.</figcaption></figure>
     </article>
   </div></section>
 
