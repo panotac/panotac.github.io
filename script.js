@@ -147,3 +147,5 @@ for (const carousel of document.querySelectorAll('[data-carousel]')) {
   new ResizeObserver(() => go(current, false)).observe(track);
   update(0);
 }
+
+window.addEventListener('message',event=>{const frame=document.getElementById('touch-interactive');if(frame&&event.origin===location.origin&&event.source===frame.contentWindow&&event.data?.type==='panotac-touch-height'&&Number.isFinite(event.data.height)){frame.style.height=Math.max(200,Math.min(1800,event.data.height))+'px';}});

@@ -10,8 +10,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/panotac-favicon-32.png?v=grid-arrows-yellow-v2">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/panotac-favicon-16.png?v=grid-arrows-yellow-v2">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/panotac-apple-touch-icon.png?v=grid-arrows-yellow-v2">
-  <link rel="stylesheet" href="styles.css?v=capabilities-release-v1">
-  <script src="script.js?v=sensor-heading-v5" defer></script>
+  <link rel="stylesheet" href="styles.css?v=touch-interactive-v1">
+  <script src="script.js?v=touch-interactive-v1" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -43,6 +43,10 @@
 
   <section id="sensor" class="section-shell chapter" aria-labelledby="sensor-title">
     <div class="section-heading"><span class="eyebrow">01 / The sensor</span><h2 id="sensor-title">Our Tactile Hardware</h2><p class="section-deck">Dense contact. Three-axis feedback.</p></div>
+    <div class="hardware-interactive" aria-labelledby="interactive-title">
+      <div class="interactive-heading"><h3 id="interactive-title">Interactive visualization</h3><p>Press and hold. Drag to shear. Release to recover.</p></div>
+      <iframe id="touch-interactive" src="interactive/touch/" title="Interactive PanoTac tactile field simulation" loading="lazy" height="1000"></iframe>
+    </div>
     <section class="sensor-group" aria-labelledby="hardware-build"><h3 id="hardware-build">Design &amp; assembly</h3>
       <div class="sensor-grid">
         <figure class="sensor-card"><div class="video-frame light-video"><video controls muted playsinline loop preload="metadata" poster="assets/images/sensor-structure.jpg" aria-label="Sensor design: exploded-view animation"><source src="assets/videos/sensor-structure.webm" type="video/webm"><source src="assets/videos/sensor-structure.mp4" type="video/mp4"></video></div><figcaption>Sensor design · A layered, replaceable sensing module.</figcaption></figure>

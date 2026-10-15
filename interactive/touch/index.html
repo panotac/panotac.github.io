@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PanoTac · Touch Lab</title><meta name="description" content="Press and drag to explore a simulated tactile field."><link rel="stylesheet" href="style.css?v=split-view-v2"></head>
+<body><main>
+
+
+<section class="instrument" aria-label="Interactive tactile simulator">
+<div class="controls" aria-label="Contact settings">
+<div class="control"><label for="depth">Press depth <output id="depthValue">1.6 mm</output></label><input id="depth" type="range" min="1" max="3" step="0.1" value="1.6"></div>
+<div class="control"><label for="radius">Contact radius <output id="radiusValue">6 mm</output></label><input id="radius" type="range" min="3" max="10" step="0.5" value="6"></div>
+<button id="reset">Reset</button>
+</div>
+<div class="workspace"><div class="toolbar"><h1>Fused field</h1><span id="status" role="status">READY</span></div>
+<div class="surface-wrap"><canvas id="surface" width="960" height="480" aria-label="Tactile field with eight magnets and ten fixed magnetometers. Press and drag to apply shear."></canvas><span class="axis-top">60 mm</span><span class="axis-side">30 mm</span><div id="hint">Press + drag ↗</div></div>
+<div class="legend"><span><i class="legend-arrow">↗</i> Direction / length · ΔBxy</span><span><i class="ramp"></i> Color / width · normal response</span></div>
+<div class="cross-section"><div class="section-label"><span>Under the surface</span><span>X–Z</span></div><canvas id="section" width="960" height="320" aria-label="X-Z cross-section through the TPU pockets and magnets above fixed magnetometers"></canvas><div class="section-key"><span><i class="dot magnet"></i> Magnets</span><span><i class="dot sensor"></i> Magnetometers</span></div></div>
+</div></section>
+<p class="footnote">Simulated magnetic response</p>
+</main><script type="module" src="app.mjs"></script><script>new ResizeObserver(()=>parent.postMessage({type:"panotac-touch-height",height:Math.ceil(document.body.getBoundingClientRect().height)},location.origin)).observe(document.body);</script></body></html>

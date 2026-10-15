@@ -70,3 +70,5 @@
 .capability-task h3{font-family:var(--sans);font-size:23px;font-weight:600;letter-spacing:-.3px;line-height:1.3}
 .capability-task .task-intro p{max-width:710px;margin-top:10px}
 @media(max-width:640px){.capability-task{margin-top:30px}.capability-task+.capability-task{margin-top:36px;padding-top:28px}.capability-task .task-intro{grid-template-columns:1fr;gap:16px}.capability-task h3{font-size:21px}}
+
+.hardware-interactive{margin:30px 0 46px}.interactive-heading{margin-bottom:18px}.interactive-heading h3{font:600 18px/1.4 var(--sans);letter-spacing:0}.interactive-heading p{font-size:13px;color:var(--muted);margin-top:7px}#touch-interactive{display:block;width:100%;border:0;height:1000px}@media(max-width:640px){.hardware-interactive{margin:26px 0 34px}.interactive-heading h3{font-size:17px}}
