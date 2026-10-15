@@ -56,3 +56,8 @@
 #sensor .section-heading .eyebrow{margin-bottom:12px}
 #sensor .section-heading h2{line-height:1.12}
 #sensor .section-deck{margin-top:8px;line-height:1.5}
+
+/* Compact sensor mark beside the paper name. */
+.paper-brand{white-space:nowrap}
+.paper-title-logo{display:inline-block;width:.95em;height:.95em;object-fit:contain;vertical-align:-.12em;margin-right:8px}
+@media(max-width:640px){.paper-title-logo{margin-right:6px}}
