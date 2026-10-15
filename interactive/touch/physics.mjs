@@ -3,7 +3,7 @@
 export const SPEC = Object.freeze({width:60,height:30,stack:18,magnetWidth:6.35,
   magnetThickness:3.175,magnetBottom:11.3,packSpacing:30.17,Br:1.48,
   layerModuli:[0.001,0.0015,0.002],cellSizeReference:8,relaxation:0.11,
-  friction:0.8,poisson:0.45,packNormalGain:0.6,packShearGain:0.35,
+  friction:0.8,poisson:0.45,packNormalGain:0.6,packShearGain:0.45,
   pressTiltGain:2.2});
 const a=4.532554626464844;
 export const packs=[-15.085,15.085].map(x=>({x,y:0,z:12.8875}));

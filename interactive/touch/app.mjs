@@ -1,5 +1,7 @@
-import {sliceMagnet,sectionProfile} from './section.mjs';
-import {SPEC,magnets,sensors,cells,TouchModel,clamp,magnetVertices} from './physics.mjs';
+import {flexLayers} from './flexitac/flexitac-geometry.mjs';
+import {tpuMeshes,boards} from './blender-geometry.mjs?v=unwarped-v1';
+import {sectionProfile} from './section.mjs';
+import {SPEC,magnets,sensors,cells,TouchModel,clamp,magnetVertices} from './physics.mjs?v=shear-045';
 const $=id=>document.getElementById(id),surface=$('surface'),ctx=surface.getContext('2d'),section=$('section'),sc=section.getContext('2d');
 const model=new TouchModel();let pointerId=null,hover=null,last=performance.now(),current=null;
 const palette=['#414487','#3a548c','#32648e','#2a788e','#238a8d','#1e9b8a','#22a884','#42b576','#64c363','#8bd646','#b8de29','#fde725'];
@@ -62,36 +64,91 @@ function drawSurface(s){ctx.clearRect(0,0,W,H);ctx.fillStyle='#101a20';ctx.fillR
  }else if(hover){ring(ctx,px(hover[0]),py(hover[1]),+$('radius').value*W/60,'#b5ceb444',[3,5]);}
  ctx.font='10px monospace';ctx.fillStyle='#66858c';ctx.fillText('+x →',W-48,H-13);ctx.fillText('+y ↑',12,22);
  $('hint').style.opacity=model.active||s.depth>.08?'0':'1';}
-function drawSection(s){sc.clearRect(0,0,section.width,section.height);const axis=0;
- const scale=800/60,Y=z=>280-z*scale;
- const radius=+$('radius').value;
- const views=[{left:80,width:800,min:-30,max:30,cut:0}];
- for(const view of views){const X=u=>view.left+(u-view.min)/(view.max-view.min)*view.width;
-   const profile=u=>sectionProfile(s,u,0,model.anchor,radius);
-   const samples=Array.from({length:121},(_,i)=>{const u=view.min+(view.max-view.min)*i/120;return {u,...profile(u)};});
-   // One continuous material silhouette keeps the interaction easy to read.
-   const outline=[...samples.map(p=>[X(p.u),Y(p.top)]),[X(view.max),Y(0)],[X(view.min),Y(0)]];
-   polygon(sc,outline);sc.fillStyle='#a99bb64d';sc.fill();
-   sc.beginPath();samples.forEach((p,i)=>i?sc.lineTo(X(p.u),Y(p.top)):sc.moveTo(X(p.u),Y(p.top)));sc.strokeStyle='#82728f99';sc.lineWidth=1;sc.stroke();
-   line(sc,X(view.min),Y(0),X(view.max),Y(0),'#82728f99',1.5);
-   sc.save();sc.globalAlpha=SENSOR_OPACITY;
-   sensors.forEach(p=>{if(Math.abs(p[1-axis]-view.cut)>1.5)return;const width=3*scale;sc.fillStyle='#26353f';sc.fillRect(X(p[axis])-width/2,Y(.45),width,.9*scale);sc.strokeStyle='#b0b9a7';sc.lineWidth=.7;sc.strokeRect(X(p[axis])-width/2,Y(.45),width,.9*scale);});
-   sc.restore();sc.save();sc.globalAlpha=MAGNET_OPACITY;
-   magnets.forEach((m,i)=>{const slice=sliceMagnet(s.poses.magnets[i],axis,view.cut);if(!slice.length)return;
-     const points=slice.map(p=>[X(p[0]),Y(p[1])]),ys=points.map(p=>p[1]),top=Math.min(...ys),bottom=Math.max(...ys);
-     const silver=sc.createLinearGradient(0,top,0,bottom);silver.addColorStop(0,'#dce4e9');silver.addColorStop(.12,'#8c9ba7');silver.addColorStop(.48,'#a9b7c0');silver.addColorStop(.54,'#7e8f9b');silver.addColorStop(1,'#394c5b');
-     polygon(sc,points);sc.fillStyle=silver;sc.fill();sc.strokeStyle='#d7e2e9bc';sc.lineWidth=.9;sc.stroke();
-   });
-   sc.restore();
-   if(model.active){const u=model.contact[axis],x=X(u),y=Y(profile(u).top);arrow(sc,x,y-22,0,16,'#592380',1.6);}
- }
- sc.font='10px monospace';sc.fillStyle='#696270';sc.fillText('18 mm',3,Y(18)+4);sc.fillText('0',23,Y(0)+3);
-
+const latticeLayer=document.createElement('canvas');latticeLayer.width=960;latticeLayer.height=600;const latticeCtx=latticeLayer.getContext('2d');
+// Preserve Blender UVs while subdividing the flat faces for smooth deformation.
+function subdivideFlex(triangle,n=16){
+ const at=(i,j)=>{const w=[1-(i+j)/n,i/n,j/n];return {p:[0,1,2].map(k=>w.reduce((a,t,l)=>a+t*triangle[l].p[k],0)),uv:[0,1].map(k=>w.reduce((a,t,l)=>a+t*triangle[l].uv[k],0))};};
+ const result=[];for(let i=0;i<n;i++)for(let j=0;j<n-i;j++){
+  result.push([at(i,j),at(i+1,j),at(i,j+1)]);
+  if(i+j<n-1)result.push([at(i+1,j),at(i+1,j+1),at(i,j+1)]);
+ }return result;
 }
+const flexMeshes=flexLayers.map(layer=>{const image=new Image();image.src=new URL('./flexitac/'+layer.texture,import.meta.url).href;
+ return {...layer,image,triangles:layer.triangles.flatMap(t=>subdivideFlex(t))};});
+const flexCanvas=document.createElement('canvas');flexCanvas.width=960;flexCanvas.height=600;const fc=flexCanvas.getContext('2d');
+function textureTriangle(c,image,vertices,points){
+ const uv=vertices.map(v=>[v.uv[0]*image.width,(1-v.uv[1])*image.height]);
+ const [u0,v0]=uv[0],du1=uv[1][0]-u0,dv1=uv[1][1]-v0,du2=uv[2][0]-u0,dv2=uv[2][1]-v0;
+ const det=du1*dv2-du2*dv1;if(Math.abs(det)<1e-8)return;
+ const [x0,y0]=points[0],dx1=points[1][0]-x0,dy1=points[1][1]-y0,dx2=points[2][0]-x0,dy2=points[2][1]-y0;
+ const a=(dx1*dv2-dx2*dv1)/det,b=(dy1*dv2-dy2*dv1)/det,cc=(dx2*du1-dx1*du2)/det,d=(dy2*du1-dy1*du2)/det;
+ c.save();polygon(c,points);c.clip();c.transform(a,b,cc,d,x0-a*u0-cc*v0,y0-b*u0-d*v0);c.drawImage(image,0,0);c.restore();
+}
+function drawSection(s){
+ sc.clearRect(0,0,section.width,section.height);
+ // Fixed three-quarter camera inspired by the Blender assembly reference.
+ // Geometry and poses use the same millimeter coordinates as the field model.
+ const ca=.84,sa=.542586,ce=.819152,se=.573576,scale=10.5;
+ const project=([x,y,z])=>[480+(x*ca+y*sa)*scale,365+((x*sa-y*ca)*se-z*ce)*scale];
+ const depth=([x,y,z])=>(-x*sa+y*ca)*ce-z*se;
+ const camera=[sa*ce,-ca*ce,se],radius=+$('radius').value;
+ const profile=(x,y)=>sectionProfile(s,x,y,model.anchor,radius).top;
+ const deform=(x,y,z)=>{const w=Math.exp(-((x-model.anchor[0])**2+(y-model.anchor[1])**2)/(2*(radius*radius+64)));
+  return [x+s.shear[0]*w*SPEC.packShearGain*z/SPEC.stack,y+s.shear[1]*w*SPEC.packShearGain*z/SPEC.stack,z];};
+ const roof=(x,y)=>{const p=deform(x,y,SPEC.stack);p[2]=profile(x,y);return p;};
+ let renderCtx=sc;
+ const face=(pts,fill,stroke=null,width=1)=>{polygon(renderCtx,pts.map(project));renderCtx.fillStyle=fill;renderCtx.fill();if(stroke){renderCtx.strokeStyle=stroke;renderCtx.lineWidth=width;renderCtx.stroke();}};
+ const faces=[];
+ function cuboid(v,colors,layer=2){
+  for(const [j,ids] of [[0,[0,1,5,4]],[1,[1,2,6,5]],[2,[2,3,7,6]],[3,[3,0,4,7]],[4,[4,5,6,7]]]){
+   const pts=ids.map(i=>v[i]),u=pts[1].map((n,i)=>n-pts[0][i]),w=pts[2].map((n,i)=>n-pts[0][i]);
+   const n=[u[1]*w[2]-u[2]*w[1],u[2]*w[0]-u[0]*w[2],u[0]*w[1]-u[1]*w[0]];
+   if(n.reduce((a,v,i)=>a+v*camera[i],0)<=0)continue;
+   faces.push({pts,d:pts.reduce((a,p)=>a+depth(p),0)/4,color:colors[j],top:j===4,layer});
+  }
+ }
+ const box=(x,y,z,w,h,t)=>[[-w/2,-h/2,0],[w/2,-h/2,0],[w/2,h/2,0],[-w/2,h/2,0],[-w/2,-h/2,t],[w/2,-h/2,t],[w/2,h/2,t],[-w/2,h/2,t]].map(p=>[p[0]+x,p[1]+y,p[2]+z]);
+ // A soft ground shadow anchors the assembly without a wireframe cage.
+ sc.save();sc.translate(480,375);sc.scale(1,.38);const shadow=sc.createRadialGradient(0,0,10,0,0,410);shadow.addColorStop(0,'#28233020');shadow.addColorStop(1,'#28233000');sc.fillStyle=shadow;sc.fillRect(-440,-440,880,880);sc.restore();
+ for(const board of boards){const [x,y]=board.center,[w,h,t]=board.size;
+  const pcb=board.name.endsWith('_PCB');
+  cuboid(box(x,y,pcb?-2.5:-.9,w,h,t),pcb?['#b4a47d','#c7b991','#b4a47d','#c7b991','#275744']:['#222b31','#3d454c','#222b31','#3d454c','#424a52'],pcb?0:1);
+ }
+ // Blender lattice, assembled into the simulation envelope and deformed continuously.
+ // Draw the real strut surfaces rather than triangle wireframes.
+ for(const mesh of tpuMeshes){
+  const verts=mesh.vertices.map(([x,y,z])=>{const p=deform(x,y,z);p[2]=z*profile(x,y)/SPEC.stack;return p;});
+  for(const ids of mesh.triangles){const pts=ids.map(i=>verts[i]);
+   const u=pts[1].map((v,i)=>v-pts[0][i]),w=pts[2].map((v,i)=>v-pts[0][i]);
+   const n=[u[1]*w[2]-u[2]*w[1],u[2]*w[0]-u[0]*w[2],u[0]*w[1]-u[1]*w[0]],len=Math.hypot(...n);
+   if(!len||n.reduce((a,v,i)=>a+v*camera[i],0)<=0)continue;
+   const light=Math.max(0,(n[0]*-.25+n[1]*-.45+n[2]*.86)/len),g=Math.round(95+80*light);
+   faces.push({pts,d:pts.reduce((a,p)=>a+depth(p),0)/3,color:`rgba(${g},${g},${g+4},1)`,lattice:true});
+  }
+ }
+ s.poses.magnets.forEach(p=>cuboid(magnetVertices(p),['#7c8792','#a0aab4','#74818d','#96a1ad','#e0e5e9']));
+ faces.sort((a,b)=>b.d-a.d);
+ faces.filter(f=>!f.lattice).sort((a,b)=>a.layer-b.layer||b.d-a.d).forEach(f=>face(f.pts,f.color,'#39434d55',.8));
+ latticeCtx.clearRect(0,0,960,600);renderCtx=latticeCtx;
+ faces.filter(f=>f.lattice).forEach(f=>face(f.pts,f.color));renderCtx=sc;
+ sc.save();sc.globalAlpha=.32;sc.drawImage(latticeLayer,0,0);sc.restore();
+ // Actual flat Blender faces and baked original materials; transparency reveals the TPU.
+ for(const [i,layer] of flexMeshes.entries()){
+  if(!layer.image.complete||!layer.image.naturalWidth)continue;
+  fc.clearRect(0,0,960,600);
+  for(const triangle of layer.triangles){
+   const points=triangle.map(v=>{const p=roof(v.p[0],v.p[1]);p[2]+=v.p[2];return project(p);});
+   textureTriangle(fc,layer.image,triangle,points);
+  }
+  sc.save();sc.globalAlpha=[.10,.04,.38][i];sc.drawImage(flexCanvas,0,0);sc.restore();
+ }
+ if(model.active){const p=project(roof(...model.contact));ring(sc,p[0],p[1],9,'#59238099');arrow(sc,p[0],p[1]-38,0,24,'#592380',2);}
+}
+let lastSectionDraw=-Infinity;
 function animate(now){let dt=Math.min((now-last)/1000,.05);last=now;
- current=model.step(dt,+$('depth').value,+$('radius').value,true);drawSurface(current);drawSection(current);
+ current=model.step(dt,+$('depth').value,+$('radius').value,true);drawSurface(current);if(now-lastSectionDraw>40){drawSection(current);lastSectionDraw=now;}
  $('status').textContent=model.active?(current.slipping?'SLIDING':Math.hypot(...current.shear)>.15?'SHEAR HELD':'PRESSING'):current.depth>.02?'RECOVERING':'READY';
  requestAnimationFrame(animate);}
 // Read-only diagnostics for reproducible validation; no force calibration implied.
-window.touchLab={snapshot:()=>({active:model.active,depth:current?.depth,shear:current?.shear,delta:current?.delta,poses:current?.poses,slipping:current?.slipping,mode:'fused',view:'xz',allowSliding:true}),spec:SPEC};
+window.touchLab={snapshot:()=>({active:model.active,depth:current?.depth,shear:current?.shear,delta:current?.delta,poses:current?.poses,slipping:current?.slipping,mode:'fused',view:'oblique',allowSliding:true}),spec:SPEC};
 requestAnimationFrame(animate);

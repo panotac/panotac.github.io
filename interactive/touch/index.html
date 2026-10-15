@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PanoTac · Touch Lab</title><meta name="description" content="Press and drag to explore a simulated tactile field."><link rel="stylesheet" href="style.css?v=section-description-v3"></head>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>PanoTac · Touch Lab</title><meta name="description" content="Press and drag to explore a simulated tactile field."><link rel="stylesheet" href="style.css?v=flexitac-v1"></head>
 <body><main>
 
 
@@ -12,7 +12,7 @@
 <div class="workspace"><div class="toolbar"><h1>Fused field</h1><span id="status" role="status">READY</span></div>
 <div class="surface-wrap"><canvas id="surface" width="960" height="480" aria-label="Tactile field with eight magnets and ten fixed magnetometers. Press and drag to apply shear."></canvas><span class="axis-top">60 mm</span><span class="axis-side">30 mm</span><div id="hint">Press + drag ↗</div></div>
 <div class="legend"><span><i class="legend-arrow">↗</i> Direction / length · ΔBxy</span><span><i class="ramp"></i> Color / width · normal response</span></div>
-<div class="cross-section"><div class="section-label"><span>Under the surface</span><span>X–Z</span></div><p class="section-description">Magnets embedded in the TPU move with deformation, while fixed magnetometers underneath track their motion.</p><canvas id="section" width="960" height="320" aria-label="X-Z cross-section through the TPU pockets and magnets above fixed magnetometers"></canvas><div class="section-key"><span><i class="dot magnet"></i> Magnets</span><span><i class="dot sensor"></i> Magnetometers</span></div></div>
+<div class="cross-section"><div class="section-label"><span>Under the surface</span><span>3D schematic</span></div><p class="section-description">Magnets embedded in the TPU move with deformation, while fixed magnetometers underneath track their motion.</p><canvas id="section" width="960" height="600" aria-label="3D schematic of eight embedded magnets above fixed magnetometers"></canvas><div class="section-key"><span><i class="dot flexitac"></i> FlexiTac</span><span><i class="dot tpu"></i> TPU</span><span><i class="dot magnet"></i> Magnets</span><span><i class="dot sensor"></i> Magnetometers</span></div></div>
 </div></section>
 <p class="footnote">Simulated magnetic response</p>
-</main><script type="module" src="app.mjs"></script><script>new ResizeObserver(()=>parent.postMessage({type:"panotac-touch-height",height:Math.ceil(document.body.getBoundingClientRect().height)},location.origin)).observe(document.body);</script></body></html>
+</main><script type="module" src="app.mjs?v=blender-flexitac-v2"></script><script>new ResizeObserver(()=>parent.postMessage({type:"panotac-touch-height",height:Math.ceil(document.body.getBoundingClientRect().height)},location.origin)).observe(document.body);</script></body></html>

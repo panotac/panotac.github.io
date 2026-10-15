@@ -1,4 +1,4 @@
-import {SPEC,packs,rotate,magnetVertices,clamp,transferAt} from './physics.mjs';
+import {SPEC,packs,rotate,magnetVertices,clamp,transferAt} from './physics.mjs?v=shear-045';
 // A magnet-top reference for surface clearance, not a material boundary.
 // The physical TPU interface is at the magnet bottom; it is not displayed.
 export const MAGNET_TOP=SPEC.magnetBottom+SPEC.magnetThickness;

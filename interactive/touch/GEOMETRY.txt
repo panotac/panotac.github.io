@@ -1,0 +1,18 @@
+TPU geometry: original hardware/eflesh_v_jun7.stl, restored in an independent
+PanoTac_unwarped.blend copy before web export. No exploded-view wave/curl.
+The full-resolution Blender source retains its native 17.34 mm height.
+The simplified web mesh maps this complete block uniformly to the existing
+18 mm simulation envelope; the two exploded pieces are no longer remapped
+independently. X is centered at original Blender X=42 mm.
+
+PCB and MLX package bounds are from hardware/Untitled.blend: two
+20 x 20 x 1.6 mm boards; five 3 x 3 x 0.9 mm chips per board at center
+and +/-7 mm offsets. Chip tops are placed at sensing plane Z=0.
+
+Materials and deformation remain illustrative, not a calibrated FEM model.
+
+FlexiTac: flat top-face meshes and UVs from hardware/Untitled1.blend,
+with original PT_FPC diffuse colors baked from hardware/Untitled.blend.
+Bottom FPC, piezofilm, and top FPC retain their original 0.45/0.35/0.45 mm
+stack thickness and 62.985 x 25.2 mm footprint. Web faces are subdivided
+for deformation and composited transparently; no schematic traces.
