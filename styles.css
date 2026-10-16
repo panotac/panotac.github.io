@@ -81,3 +81,6 @@
 #failures .tab-number{font-size:13px;margin:0;opacity:.75}
 #failures .task-tabs button:active{transform:translateY(2px);box-shadow:0 1px 0 #d6cbdc}
 @media(max-width:640px){.js #failures .task-tabs{gap:8px;margin:24px 0}#failures .task-tabs button{flex-direction:column;gap:5px;padding:14px 8px;min-height:88px;font-size:15px}#failures .tab-number{display:block;margin:0;font-size:11px}}
+
+.collection-video{margin-top:30px}.collection-video figcaption{margin-top:20px;text-align:center}.collection-video figcaption strong{display:block;font:600 19px/1.45 var(--sans);color:var(--ink)}.collection-video figcaption span{display:block;margin-top:7px;font-size:13px;color:var(--muted)}
+@media(max-width:640px){.collection-video{margin-top:24px}.collection-video figcaption strong{font-size:16px}.collection-video figcaption span{font-size:12px}}
