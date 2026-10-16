@@ -6,7 +6,7 @@ const $=id=>document.getElementById(id),surface=$('surface'),ctx=surface.getCont
 const model=new TouchModel();let pointerId=null,hover=null,last=performance.now(),current=null;
 const palette=['#414487','#3a548c','#32648e','#2a788e','#238a8d','#1e9b8a','#22a884','#42b576','#64c363','#8bd646','#b8de29','#fde725'];
 // A larger divisor shortens every magnetic vector proportionally, without clipping.
-const ARROW_LENGTH_DIVISOR=3,MAGNET_OPACITY=.55,SENSOR_OPACITY=.40;
+const ARROW_LENGTH_DIVISOR=3/1.3,MAGNET_OPACITY=.55,SENSOR_OPACITY=.40;
 const W=960,H=480,px=x=>(x+30)/60*W,py=y=>(15-y)/30*H;
 function reset(){model.reset();hover=null;pointerId=null;}
 function getPosition(e){const r=surface.getBoundingClientRect();return [clamp((e.clientX-r.left)/r.width*60-30,-29.5,29.5),clamp(15-(e.clientY-r.top)/r.height*30,-14.5,14.5)];}
@@ -54,7 +54,7 @@ function drawSurface(s){ctx.clearRect(0,0,W,H);ctx.fillStyle='#101a20';ctx.fillR
  for(const p of cells){ctx.fillStyle='#56787944';ctx.beginPath();ctx.arc(px(p.x),py(p.y),1,0,Math.PI*2);ctx.fill();}
  if(s.depth>.01){let [x,y]=model.contact;const g=ctx.createRadialGradient(px(x),py(y),0,px(x),py(y),+$('radius').value*W/60*2.6);g.addColorStop(0,`rgba(85,140,113,${Math.min(.14,s.depth*.05)})`);g.addColorStop(1,'rgba(70,110,100,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);}
  drawMagneticLayout(s);
- for(const p of s.dense){const xy=Math.hypot(p.b[0],p.b[1]),value=p.fused/.70;const az=clamp(value,0,1)**1.5,col=palette[Math.min(11,Math.floor(az*12))];const len=xy*72/ARROW_LENGTH_DIVISOR,width=.8+az*3.2;
+ for(const p of s.dense){const xy=Math.hypot(p.b[0],p.b[1]),value=p.fused/.70;const az=clamp(value,0,1)**1.5,col=palette[Math.min(11,Math.floor(az*12))];const len=xy*72/ARROW_LENGTH_DIVISOR,width=.6+az*4.6;
    const activity=p.fused;if(activity<.007&&xy<.012)continue;ctx.globalAlpha=.28+.72*Math.max(az,Math.min(1,xy/.2));
    if(len<3/ARROW_LENGTH_DIVISOR){if(activity>.008){ctx.fillStyle=col;ctx.beginPath();ctx.arc(px(p.x),py(p.y),1.3+az*3.5,0,2*Math.PI);ctx.fill();}}
    else arrow(ctx,px(p.x),py(p.y),p.b[0]/xy*len,-p.b[1]/xy*len,col,width);ctx.globalAlpha=1;}
