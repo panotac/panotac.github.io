@@ -72,3 +72,12 @@
 @media(max-width:640px){.capability-task{margin-top:30px}.capability-task+.capability-task{margin-top:36px;padding-top:28px}.capability-task .task-intro{grid-template-columns:1fr;gap:16px}.capability-task h3{font-size:21px}}
 
 .hardware-interactive{margin:30px 0 46px}.interactive-heading{margin-bottom:18px}.interactive-heading h3{font:600 18px/1.4 var(--sans);letter-spacing:0}.interactive-heading p{font-size:13px;color:var(--muted);margin-top:7px}#touch-interactive{display:block;width:100%;border:0;height:1000px}@media(max-width:640px){.hardware-interactive{margin:26px 0 34px}.interactive-heading h3{font-size:17px}}
+
+/* Full-width task navigation for failure cases. */
+.js #failures .task-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:100%;margin:28px 0 26px}
+#failures .task-tabs button{display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;cursor:pointer;min-width:0;min-height:78px;padding:20px 16px;border:2px solid #c1a9d0;background:#eee8f2;color:var(--purple);font-size:20px;font-weight:700;border-radius:9px;box-shadow:0 3px 0 #d6cbdc;transition:background .15s,border-color .15s,box-shadow .15s,transform .15s}
+#failures .task-tabs button:hover{background:#e3d8eb;border-color:var(--purple);transform:translateY(-2px);box-shadow:0 5px 0 #d6cbdc}
+#failures .task-tabs button[aria-selected=true]{background:var(--purple);border-color:var(--purple);color:#fff}
+#failures .tab-number{font-size:13px;margin:0;opacity:.75}
+#failures .task-tabs button:active{transform:translateY(2px);box-shadow:0 1px 0 #d6cbdc}
+@media(max-width:640px){.js #failures .task-tabs{gap:8px;margin:24px 0}#failures .task-tabs button{flex-direction:column;gap:5px;padding:14px 8px;min-height:88px;font-size:15px}#failures .tab-number{display:block;margin:0;font-size:11px}}
