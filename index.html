@@ -10,18 +10,26 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/panotac-favicon-32.png?v=grid-arrows-yellow-v2">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/panotac-favicon-16.png?v=grid-arrows-yellow-v2">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/panotac-apple-touch-icon.png?v=grid-arrows-yellow-v2">
-  <link rel="stylesheet" href="typography.css?v=type-v6">
-<link rel="stylesheet" href="styles.css?v=hardware-overview-v2">
-  <script src="script.js?v=touch-interactive-v1" defer></script>
+  <link rel="stylesheet" href="typography.css?v=l4-v3">
+<link rel="stylesheet" href="styles.css?v=nav-gutter-v2">
+  <script src="script.js?v=nav-v2" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <nav class="nav-shell" aria-label="Main navigation">
     <a class="wordmark" href="#intro">PanoTac<span aria-hidden="true">.</span></a>
-    <div class="nav-links"><a href="#sensor">Sensor</a><a href="#manipulation">Manipulation</a><a href="#failures">Failure modes</a><a href="#results">Results</a></div>
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-controls="nav-menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="nav-links" id="nav-menu"><a href="#sensor">Sensor</a><a href="#manipulation">Manipulation</a><a href="#failures">Failure modes</a><a href="#results">Results</a></div>
   </nav>
 </header>
+<nav class="section-dots" aria-label="Section navigation">
+  <a href="#intro" aria-label="Intro"><span>Intro</span></a>
+  <a href="#sensor" aria-label="Sensor"><span>Sensor</span></a>
+  <a href="#manipulation" aria-label="Manipulation"><span>Manipulation</span></a>
+  <a href="#failures" aria-label="Failure modes"><span>Failure modes</span></a>
+  <a href="#results" aria-label="Results"><span>Results</span></a>
+</nav>
 <main id="main">
   <section id="intro" class="intro section-shell" aria-labelledby="paper-title">
     <h1 id="paper-title"><span class="paper-title-line"><span class="paper-brand"><img class="paper-title-logo" src="assets/images/panotac-logo.svg?v=grid-arrows-yellow-v2" alt="" width="56" height="56">PanoTac:</span> A Dense Three-Axis Tactile Sensor</span> <span class="paper-title-line">for Robust Touch-Centric Manipulation</span></h1>
@@ -31,6 +39,7 @@
       <p class="author-notes"><span>† Equal contribution.</span><span>‡ Equal advising.</span></p>
     </div>
     <figure class="hero-figure" aria-labelledby="teaser-intro">
+      <div class="teaser-panel-labels"><span>External Camera (not policy input)</span><span>Tactile visualization</span></div>
       <div class="video-frame teaser-video">
         <video id="hero-video" controls muted playsinline preload="metadata" poster="assets/images/teaser-four-rollouts.jpg?v=release-rollout-source2-v5" aria-label="Four consecutive autonomous test tube rollouts at 2× speed, with external phone footage, Right PanoTac on top, and Left PanoTac below" aria-describedby="teaser-caption"><source src="assets/videos/teaser-four-rollouts.webm?v=release-rollout-source2-v5" type="video/webm"><source src="assets/videos/teaser-four-rollouts.mp4?v=release-rollout-source2-v5" type="video/mp4">Your browser does not support video. <a href="assets/videos/teaser-four-rollouts.mp4?v=release-rollout-source2-v5">Download the four-rollout teaser.</a></video>
       </div>
@@ -63,7 +72,7 @@
     </section>
     <div class="hardware-interactive" aria-labelledby="interactive-title">
       <div class="interactive-heading"><h3 id="interactive-title">Interactive visualization</h3></div>
-      <iframe id="touch-interactive" src="interactive/touch/?v=instructions-v1" title="Interactive PanoTac tactile field simulation" loading="lazy" height="1000"></iframe>
+      <iframe id="touch-interactive" src="interactive/touch/?v=schematic-title-v1" title="Interactive PanoTac tactile field simulation" loading="lazy" height="1000"></iframe>
     </div>
   </section>
 
@@ -75,16 +84,16 @@
   <section id="manipulation" class="chapter task-section" aria-labelledby="manipulation-title"><div class="section-shell">
     <div class="section-heading"><h2 id="manipulation-title">03 / Capability Experiments</h2></div>
     <article id="tube-panel" class="capability-task" aria-labelledby="tube-title">
-      <div class="task-intro"><div><span class="step-number">01</span><h3 id="tube-title">Test tube preparation</h3><p>Tactile feedback guides tube reorientation and insertion, then detects stopper release during removal.</p></div><div class="task-stat"><strong>90<span>%</span></strong><span>Full-task success<br>18/20 rollouts</span></div></div>
-      <figure><div class="video-frame"><video controls muted playsinline preload="none" poster="assets/images/task-tube-success.jpg" aria-label="Autonomous test tube preparation at 2× speed"><source src="assets/videos/task-tube-success.webm" type="video/webm"><source src="assets/videos/task-tube-success.mp4" type="video/mp4"></video></div><figcaption>Autonomous · 2× speed.</figcaption></figure>
+      <div class="task-intro"><div><span class="step-number">01</span><h3 id="tube-title">Test tube preparation</h3><p>Tactile feedback guides tube reorientation and insertion, then detects stopper release during removal.</p></div><div class="task-stat"><strong>90<span>%</span></strong></div></div>
+      <figure><div class="video-frame"><video controls muted playsinline preload="none" poster="assets/images/task-tube-success.jpg" aria-label="Autonomous test tube preparation at 2× speed"><source src="assets/videos/task-tube-success.webm" type="video/webm"><source src="assets/videos/task-tube-success.mp4" type="video/mp4"></video></div></figure>
     </article>
     <article id="grain-panel" class="capability-task" aria-labelledby="grain-title">
-      <div class="task-intro"><div><span class="step-number">02</span><h3 id="grain-title">Grain scooping</h3><p>Contact patterns reveal the occluded spoon’s orientation to guide scooping, transfer, and return.</p></div><div class="task-stat"><strong>85<span>%</span></strong><span>Full-task success<br>17/20 rollouts</span></div></div>
-      <figure><div class="video-frame"><video controls muted playsinline preload="none" poster="assets/images/task-grain-success.jpg" aria-label="Two autonomous grain scooping demonstrations at 2× speed"><source src="assets/videos/task-grain-success.webm" type="video/webm"><source src="assets/videos/task-grain-success.mp4" type="video/mp4"></video></div><figcaption>Autonomous · 2× speed.</figcaption></figure>
+      <div class="task-intro"><div><span class="step-number">02</span><h3 id="grain-title">Grain scooping</h3><p>Contact patterns reveal the occluded spoon’s orientation to guide scooping, transfer, and return.</p></div><div class="task-stat"><strong>85<span>%</span></strong></div></div>
+      <figure><div class="video-frame"><video controls muted playsinline preload="none" poster="assets/images/task-grain-success.jpg" aria-label="Two autonomous grain scooping demonstrations at 2× speed"><source src="assets/videos/task-grain-success.webm" type="video/webm"><source src="assets/videos/task-grain-success.mp4" type="video/mp4"></video></div></figure>
     </article>
     <article id="salt-panel" class="capability-task" aria-labelledby="salt-title">
-      <div class="task-intro"><div><span class="step-number">03</span><h3 id="salt-title">Salt pouring</h3><p>Tactile weight cues distinguish filled from empty opaque bottles to decide whether to pour.</p></div><div class="task-stat"><strong>100<span>%</span></strong><span>Full-task success<br>20/20 rollouts</span></div></div>
-      <figure><div class="video-frame"><video controls muted playsinline preload="none" poster="assets/images/task-salt-success.jpg" aria-label="Autonomous salt pouring and empty bottle disposal at 2× speed"><source src="assets/videos/task-salt-success.webm" type="video/webm"><source src="assets/videos/task-salt-success.mp4" type="video/mp4"></video></div><figcaption>Autonomous · 2× speed.</figcaption></figure>
+      <div class="task-intro"><div><span class="step-number">03</span><h3 id="salt-title">Salt pouring</h3><p>Tactile weight cues distinguish filled from empty opaque bottles to decide whether to pour.</p></div><div class="task-stat"><strong>100<span>%</span></strong></div></div>
+      <figure><div class="video-frame"><video controls muted playsinline preload="none" poster="assets/images/task-salt-success.jpg" aria-label="Autonomous salt pouring and empty bottle disposal at 2× speed"><source src="assets/videos/task-salt-success.webm" type="video/webm"><source src="assets/videos/task-salt-success.mp4" type="video/mp4"></video></div></figure>
     </article>
   </div></section>
 

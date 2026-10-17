@@ -149,3 +149,27 @@ for (const carousel of document.querySelectorAll('[data-carousel]')) {
 }
 
 window.addEventListener('message',event=>{const frame=document.getElementById('touch-interactive');if(frame&&event.origin===location.origin&&event.source===frame.contentWindow&&event.data?.type==='panotac-touch-height'&&Number.isFinite(event.data.height)){frame.style.height=Math.max(200,Math.min(1800,event.data.height))+'px';}});
+
+// Match the reference: section activation at 20% of the viewport height.
+const navDots = [...document.querySelectorAll('.section-dots a')];
+function setActiveSection(id) {
+  for (const link of navDots) {
+    if (link.hash === '#' + id) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  }
+}
+setActiveSection('intro');
+const sectionObserver = new IntersectionObserver(entries => {
+  for (const entry of entries) if (entry.isIntersecting) setActiveSection(entry.target.id);
+}, {root:null, rootMargin:'-20% 0px -80% 0px', threshold:0});
+navDots.forEach(link => sectionObserver.observe(document.querySelector(link.hash)));
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu = document.getElementById('nav-menu');
+function closeNavMenu() { navToggle.setAttribute('aria-expanded','false'); navMenu.classList.remove('is-open'); }
+navToggle.addEventListener('click', () => {
+  const open = navToggle.getAttribute('aria-expanded') !== 'true';
+  navToggle.setAttribute('aria-expanded',String(open));
+  navMenu.classList.toggle('is-open',open);
+});
+navMenu.querySelectorAll('a').forEach(link => link.addEventListener('click',closeNavMenu));
+navMenu.addEventListener('keydown', event => { if (event.key === 'Escape') { closeNavMenu(); navToggle.focus(); } });

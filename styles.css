@@ -141,3 +141,43 @@ h1#paper-title{text-wrap:initial}
 .hardware-specs{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 0;margin:0;color:var(--muted);font-size:var(--type-4);line-height:1.6}
 .hardware-specs span{white-space:nowrap}
 .hardware-specs span+span::before{content:'·';display:inline-block;margin:0 16px;color:var(--muted)}
+
+/* HTML labels aligned with the teaser's two equal-width panels. */
+.teaser-panel-labels{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px;font-size:var(--type-4);line-height:1.5;color:var(--muted);text-align:center}
+.teaser-panel-labels>span{min-width:0}
+
+.capability-task .task-intro p{font-weight:600}
+
+/* Let task descriptions use the available width beside the percentage. */
+.capability-task .task-intro{grid-template-columns:minmax(0,1fr) auto;gap:24px}
+.capability-task .task-intro p{max-width:none}
+.capability-task .task-stat{padding-left:24px}
+@media(max-width:640px){.capability-task .task-intro{grid-template-columns:1fr;gap:16px}.capability-task .task-stat{padding-left:0}}
+
+/* Navigation behavior follows the Patch Policy reference. */
+.site-header{background:var(--paper);border-top:1px solid var(--purple);border-bottom:0}
+.site-header .nav-shell{max-width:none;justify-content:flex-start;gap:24px;padding:8px 12px;min-height:64px}
+.site-header .wordmark{font-size:var(--type-2);font-weight:400;white-space:nowrap}
+.site-header .nav-links{font:400 var(--type-3)/1.4 var(--serif);justify-content:flex-start;gap:0}
+.site-header .nav-links a{padding:8px 12px}
+.site-header .nav-links a:hover{background:#5923800d;color:var(--purple)}
+.nav-toggle{display:none}
+.section-dots{position:fixed;left:20px;top:50%;transform:translateY(-50%);z-index:25;display:flex;flex-direction:column;gap:15px}
+.section-dots a{position:relative;display:block;width:12px;height:12px;border-radius:50%;background:#5923804d;transition:background .3s,transform .3s}
+.section-dots a:hover,.section-dots a:focus-visible,.section-dots a[aria-current]{background:var(--purple);transform:scale(1.2)}
+.section-dots span{position:absolute;left:20px;top:50%;transform:translateY(-50%);white-space:nowrap;background:var(--purple);color:white;padding:4px 8px;border-radius:4px;font:400 var(--type-4)/1.5 var(--serif);opacity:0;pointer-events:none;transition:opacity .3s,left .3s}
+.section-dots a[aria-current] span,.section-dots a:hover span,.section-dots a:focus-visible span{opacity:1;left:25px}
+@media(max-width:1024px){
+ .section-dots{display:none}
+ .site-header .nav-shell{flex-wrap:wrap;justify-content:space-between;gap:0}
+ .nav-toggle{display:flex;flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;padding:12px;border:0;background:transparent;color:var(--ink)}
+ .nav-toggle span{display:block;width:20px;height:1px;background:currentColor}
+ .site-header .nav-links{display:none;width:100%;flex-direction:column;font-size:var(--type-4);padding:8px 0}
+ .site-header .nav-links.is-open{display:flex}
+}
+
+/* Reserve a desktop gutter for the expanded section-navigation label. */
+@media(min-width:1025px){
+ main>.section-shell,main>section>.section-shell{width:min(1080px,calc(100% - 360px));margin-inline:auto}
+ #paper-title{font-size:clamp(26px,2.8vw,44px)}
+}
