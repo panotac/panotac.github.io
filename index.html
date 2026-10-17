@@ -10,7 +10,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/panotac-favicon-32.png?v=grid-arrows-yellow-v2">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/images/panotac-favicon-16.png?v=grid-arrows-yellow-v2">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/panotac-apple-touch-icon.png?v=grid-arrows-yellow-v2">
-  <link rel="stylesheet" href="styles.css?v=authors-v3">
+  <link rel="stylesheet" href="typography.css?v=type-v6">
+<link rel="stylesheet" href="styles.css?v=hardware-overview-v2">
   <script src="script.js?v=touch-interactive-v1" defer></script>
 </head>
 <body>
@@ -23,22 +24,19 @@
 </header>
 <main id="main">
   <section id="intro" class="intro section-shell" aria-labelledby="paper-title">
-    <h1 id="paper-title"><span class="paper-brand"><img class="paper-title-logo" src="assets/images/panotac-logo.svg?v=grid-arrows-yellow-v2" alt="" width="56" height="56">PanoTac:</span> A Dense Three-Axis Tactile Sensor for Robust Touch-Centric Manipulation</h1>
+    <h1 id="paper-title"><span class="paper-title-line"><span class="paper-brand"><img class="paper-title-logo" src="assets/images/panotac-logo.svg?v=grid-arrows-yellow-v2" alt="" width="56" height="56">PanoTac:</span> A Dense Three-Axis Tactile Sensor</span> <span class="paper-title-line">for Robust Touch-Centric Manipulation</span></h1>
     <div class="author-block">
-      <p class="authors"><span>Binglin (Andre) Wang<sup>1,*</sup></span><span>Xiaole Jiang<sup>2,*</sup></span><span>Zicheng Teng<sup>1</sup></span><span>Xinqi Liu<sup>3</sup></span><span class="author-row-break" aria-hidden="true"></span><span>Yunzhu Li<sup>5</sup></span><span>Lerrel Pinto<sup>1</sup></span><span>Zichen Jeff Cui<sup>1,†</sup></span><span>Binghao Huang<sup>5,†</sup></span></p>
-      <div class="affiliations"><span><sup>1</sup> Courant Institute, New York University</span><span><sup>2</sup> City University of New York</span><span><sup>3</sup> NYU Shanghai</span><span><sup>5</sup> Department of Computer Science, Columbia University</span></div>
-      <p class="author-notes"><span>*Equal contribution</span><span>† Co-advisors</span></p>
+      <p class="authors"><span>Binglin (Andre) Wang<sup>1,†</sup></span><span>Xiaole (Alex) Jiang<sup>2,†</sup></span><span>Zicheng Teng<sup>1</sup></span><span>Xinqi Liu<sup>1</sup></span><span class="author-row-break" aria-hidden="true"></span><span>Yunzhu Li<sup>3</sup></span><span>Lerrel Pinto<sup>1</sup></span><span>Zichen Jeff Cui<sup>1,‡</sup></span><span>Binghao Huang<sup>3,‡</sup></span></p>
+      <div class="affiliations"><span><sup>1</sup> New York University</span><span><sup>2</sup> City University of New York</span><span><sup>3</sup> Columbia University</span></div>
+      <p class="author-notes"><span>† Equal contribution.</span><span>‡ Equal advising.</span></p>
     </div>
-    <div class="resource-links"><a class="button button-primary" href="#manipulation">Explore the demos <span aria-hidden="true">↓</span></a></div>
-    <figure class="hero-figure">
+    <figure class="hero-figure" aria-labelledby="teaser-intro">
       <div class="video-frame teaser-video">
         <video id="hero-video" controls muted playsinline preload="metadata" poster="assets/images/teaser-four-rollouts.jpg?v=release-rollout-source2-v5" aria-label="Four consecutive autonomous test tube rollouts at 2× speed, with external phone footage, Right PanoTac on top, and Left PanoTac below" aria-describedby="teaser-caption"><source src="assets/videos/teaser-four-rollouts.webm?v=release-rollout-source2-v5" type="video/webm"><source src="assets/videos/teaser-four-rollouts.mp4?v=release-rollout-source2-v5" type="video/mp4">Your browser does not support video. <a href="assets/videos/teaser-four-rollouts.mp4?v=release-rollout-source2-v5">Download the four-rollout teaser.</a></video>
       </div>
-      <figcaption id="teaser-caption">Test Tube Preparation Demo (Autonomous, 2x)</figcaption>
+      <figcaption id="teaser-caption"><span id="teaser-intro" class="teaser-intro">Contact-rich manipulation benefits from both normal and shear feedback.</span><span class="teaser-demo-label">Test Tube Preparation Demo (Autonomous, 2x)</span></figcaption>
     </figure>
-    <p class="hero-statement">Dense three-axis tactile sensing<br><em>in a compliant fingertip.</em></p>
-    <dl class="spec-strip"><div><dt>12 × 32 taxels</dt><dd>Normal (z) + shear (x, y) per taxel</dd></div><div><dt>Up to 100 Hz</dt><dd>Sensor readout†</dd></div><div><dt>$9.4</dt><dd>Per sensor, excluding readout boards*</dd></div></dl>
-    <p class="cost-note">†Data collection uses 60 Hz. &nbsp; *The corresponding readout boards cost $70.</p>
+    <div class="resource-links"><a class="button button-primary" href="#manipulation">Explore the demos <span aria-hidden="true">↓</span></a></div>
   </section>
 
   <section class="abstract section-shell" aria-labelledby="abstract-title">
@@ -46,10 +44,10 @@
   </section>
 
   <section id="sensor" class="section-shell chapter" aria-labelledby="sensor-title">
-    <div class="section-heading"><span class="eyebrow">01 / The sensor</span><h2 id="sensor-title">Our Tactile Hardware</h2><p class="section-deck">Dense contact. Three-axis feedback.</p></div>
-    <div class="hardware-interactive" aria-labelledby="interactive-title">
-      <div class="interactive-heading"><h3 id="interactive-title">Interactive visualization</h3><p>Press and hold. Drag to shear. Release to recover.</p></div>
-      <iframe id="touch-interactive" src="interactive/touch/" title="Interactive PanoTac tactile field simulation" loading="lazy" height="1000"></iframe>
+    <div class="section-heading"><h2 id="sensor-title">01 / Our Tactile Hardware</h2></div>
+    <div class="hardware-overview">
+      <p class="hero-statement">Dense three-axis tactile sensing <em>in a compliant fingertip.</em></p>
+      <p class="hardware-specs" aria-label="Hardware specifications"><span>12 × 32 taxels</span><span>Up to 100 Hz</span><span>$9.4 per sensor</span></p>
     </div>
     <section class="sensor-group" aria-labelledby="hardware-build"><h3 id="hardware-build">Design &amp; assembly</h3>
       <div class="sensor-grid">
@@ -63,15 +61,19 @@
         <figure class="sensor-card"><div class="video-frame"><video controls muted playsinline preload="metadata" poster="assets/images/sensor-response.jpg" aria-label="Manual contact and tactile signal response"><source src="assets/videos/sensor-response.webm" type="video/webm"><source src="assets/videos/sensor-response.mp4" type="video/mp4"></video></div><figcaption>Signal response · Tactile feedback during contact and deformation.</figcaption></figure>
       </div>
     </section>
+    <div class="hardware-interactive" aria-labelledby="interactive-title">
+      <div class="interactive-heading"><h3 id="interactive-title">Interactive visualization</h3></div>
+      <iframe id="touch-interactive" src="interactive/touch/?v=instructions-v1" title="Interactive PanoTac tactile field simulation" loading="lazy" height="1000"></iframe>
+    </div>
   </section>
 
   <section id="data-collection" class="section-shell chapter setup-section" aria-labelledby="setup-title">
-    <div class="section-heading"><span class="eyebrow">02 / Data Collection</span><h2 id="setup-title">Data Collection System</h2></div>
+    <div class="section-heading"><h2 id="setup-title">02 / Data Collection System</h2></div>
     <figure class="collection-video"><div class="video-frame"><video controls playsinline preload="metadata" poster="assets/images/system-overview.jpg?v=sdr709" aria-label="Robot setup followed by teleoperation with sonified tactile feedback"><source src="assets/videos/system-overview.webm?v=sdr709" type="video/webm"><source src="assets/videos/system-overview.mp4?v=sdr709" type="video/mp4"></video></div><figcaption><strong>VR Teleoperation with Audio Haptic Feedback</strong><span>Play with sound to hear the feedback.</span></figcaption></figure>
   </section>
 
   <section id="manipulation" class="chapter task-section" aria-labelledby="manipulation-title"><div class="section-shell">
-    <div class="section-heading"><span class="eyebrow">03 / Touch in action</span><h2 id="manipulation-title">Capability Experiments</h2></div>
+    <div class="section-heading"><h2 id="manipulation-title">03 / Capability Experiments</h2></div>
     <article id="tube-panel" class="capability-task" aria-labelledby="tube-title">
       <div class="task-intro"><div><span class="step-number">01</span><h3 id="tube-title">Test tube preparation</h3><p>Tactile feedback guides tube reorientation and insertion, then detects stopper release during removal.</p></div><div class="task-stat"><strong>90<span>%</span></strong><span>Full-task success<br>18/20 rollouts</span></div></div>
       <figure><div class="video-frame"><video controls muted playsinline preload="none" poster="assets/images/task-tube-success.jpg" aria-label="Autonomous test tube preparation at 2× speed"><source src="assets/videos/task-tube-success.webm" type="video/webm"><source src="assets/videos/task-tube-success.mp4" type="video/mp4"></video></div><figcaption>Autonomous · 2× speed.</figcaption></figure>
@@ -88,7 +90,7 @@
 
 
 
-  <section id="failures" class="chapter failure-section" aria-labelledby="failures-title"><div class="section-shell"><div class="section-heading"><span class="eyebrow">04 / Failure modes</span><h2 id="failures-title">Failure modes</h2><p class="section-deck">Representative failures of the baseline policies on each task.</p></div>
+  <section id="failures" class="chapter failure-section" aria-labelledby="failures-title"><div class="section-shell"><div class="section-heading"><h2 id="failures-title">04 / Failure modes</h2><p class="section-deck">Representative failures of the baseline policies on each task.</p></div>
     <div class="tabs task-tabs" role="tablist" aria-label="Failure modes by task" data-tabs="failures"><button id="failure-tube-tab" type="button" role="tab" aria-selected="true" aria-controls="failure-tube-panel" data-panel="failure-tube-panel"><span class="tab-number">01</span> Test tube preparation</button><button id="failure-grain-tab" type="button" role="tab" aria-selected="false" aria-controls="failure-grain-panel" data-panel="failure-grain-panel" tabindex="-1"><span class="tab-number">02</span> Grain scooping</button><button id="failure-salt-tab" type="button" role="tab" aria-selected="false" aria-controls="failure-salt-panel" data-panel="failure-salt-panel" tabindex="-1"><span class="tab-number">03</span> Salt pouring</button></div>
     <div id="failure-tube-panel" class="tab-panel" role="tabpanel" aria-labelledby="failure-tube-tab">
 <div class="failure-carousel" data-carousel role="region" aria-roledescription="carousel" aria-labelledby="failure-tube-tab"><div class="carousel-window"><div class="carousel-track" id="failure-tube-track" tabindex="0" aria-label="Test tube preparation failure videos">
@@ -131,7 +133,7 @@
     </div>
   </div></section>
 
-  <section id="results" class="section-shell chapter" aria-labelledby="results-title"><div class="section-heading"><span class="eyebrow">05 / Evidence</span><h2 id="results-title">Complementary information. Stronger overall performance.</h2><p class="section-deck">Four policies, the same demonstrations, and three touch-centric tasks.</p></div>
+  <section id="results" class="section-shell chapter" aria-labelledby="results-title"><div class="section-heading"><h2 id="results-title">05 / Complementary information. Stronger overall performance.</h2><p class="section-deck">Four policies, the same demonstrations, and three touch-centric tasks.</p></div>
     <div class="results-layout"><div class="result-context"><div class="big-result">91.7<span>%</span></div><p class="result-label">Overall full-task success with PanoTac</p><p>Removing either spatial contact information or load feedback reduces overall success across the task suite.</p><p class="fine-print">60 rollouts per policy: 20 per task.</p></div><figure class="bar-chart"><figcaption>Overall full-task success <span>(%)</span></figcaption><div class="bar-row"><div class="bar-heading"><span>Vision only</span><strong>45.0%</strong></div><div class="bar-track"><div class="bar" style="width:45.0%"></div></div></div><div class="bar-row"><div class="bar-heading"><span>Vision + dense normal array</span><strong>73.3%</strong></div><div class="bar-track"><div class="bar" style="width:73.3%"></div></div></div><div class="bar-row"><div class="bar-heading"><span>Vision + sparse three-axis</span><strong>80.0%</strong></div><div class="bar-track"><div class="bar" style="width:80.0%"></div></div></div><div class="bar-row ours"><div class="bar-heading"><span>Vision + PanoTac <small>Ours</small></span><strong>91.7%</strong></div><div class="bar-track"><div class="bar" style="width:91.7%"></div></div></div></figure></div>
   </section>
 

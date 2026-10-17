@@ -63,7 +63,7 @@ function drawSurface(s){ctx.clearRect(0,0,W,H);ctx.fillStyle='#101a20';ctx.fillR
    ring(ctx,px(x),py(y),8,'#f1f3df');line(ctx,px(x)-3,py(y),px(x)+3,py(y),'#f1f3df');line(ctx,px(x),py(y)-3,px(x),py(y)+3,'#f1f3df');
  }else if(hover){ring(ctx,px(hover[0]),py(hover[1]),+$('radius').value*W/60,'#b5ceb444',[3,5]);}
  ctx.font='10px monospace';ctx.fillStyle='#66858c';ctx.fillText('+x →',W-48,H-13);ctx.fillText('+y ↑',12,22);
- $('hint').style.opacity=model.active||s.depth>.08?'0':'1';}
+ }
 const latticeLayer=document.createElement('canvas');latticeLayer.width=960;latticeLayer.height=600;const latticeCtx=latticeLayer.getContext('2d');
 // Preserve Blender UVs while subdividing the flat faces for smooth deformation.
 function subdivideFlex(triangle,n=16){
