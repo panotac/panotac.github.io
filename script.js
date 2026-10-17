@@ -99,53 +99,86 @@ reducedMotion.addEventListener('change', () => {
   else syncPlayback();
 });
 
-// Keep each carousel independent; play only its visible, selected slide.
+// Endpoint previews make each failure carousel a continuous loop.
 for (const carousel of document.querySelectorAll('[data-carousel]')) {
   const track = carousel.querySelector('.carousel-track');
-  const slides = [...carousel.querySelectorAll('.carousel-slide')];
+  const originals = [...track.querySelectorAll('.carousel-slide')];
   const dots = [...carousel.querySelectorAll('[data-slide]')];
   const previous = carousel.querySelector('.carousel-prev');
   const next = carousel.querySelector('.carousel-next');
-  let current = 0;
+  const count = originals.length;
+  function previewOf(slide) {
+    const clone = slide.cloneNode(true);
+    clone.dataset.loopPreview = 'true';
+    clone.setAttribute('aria-hidden', 'true');
+    clone.inert = true;
+    clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+    clone.querySelectorAll('video').forEach(video => { video.removeAttribute('autoplay'); video.preload = 'none'; });
+    return clone;
+  }
+  track.prepend(previewOf(originals[count - 1]));
+  track.append(previewOf(originals[0]));
+  const slides = [...track.querySelectorAll('.carousel-slide')];
+  let current = 0, physical = 1, settling, scrollFrame;
+  const logicalIndex = index => (index - 1 + count) % count;
   function update(index) {
-    current = index;
+    physical = index;
+    current = logicalIndex(index);
     slides.forEach((slide, i) => {
       const active = i === index;
       slide.classList.toggle('is-current', active);
-      slide.inert = !active;
+      slide.inert = !active || Boolean(slide.dataset.loopPreview);
       if (!active) pauseManaged(slide.querySelector('video'));
-      if (active) dots[i].setAttribute('aria-current', 'true');
-      else dots[i].removeAttribute('aria-current');
     });
-    previous.disabled = index === 0;
-    next.disabled = index === slides.length - 1;
+    dots.forEach((dot, i) => {
+      if (i === current) dot.setAttribute('aria-current', 'true');
+      else dot.removeAttribute('aria-current');
+    });
+    previous.disabled = next.disabled = false;
     requestAnimationFrame(syncPlayback);
   }
-  function go(index, smooth = true) {
-    index = Math.max(0, Math.min(slides.length - 1, index));
-    update(index);
+  function position(index, smooth) {
+    if (!track.clientWidth) return;
     track.scrollTo({left: slides[index].offsetLeft - (track.clientWidth - slides[index].offsetWidth) / 2,
-      behavior: smooth && !matchMedia('(prefers-reduced-motion: reduce)').matches ? 'smooth' : 'instant'});
+      behavior: smooth && !reducedMotion.matches ? 'smooth' : 'instant'});
+  }
+  function normalize() {
+    clearTimeout(settling);
+    if (physical === 0 || physical === count + 1) {
+      const index = current + 1;
+      update(index);
+      position(index, false);
+    }
+  }
+  function go(index, smooth = true) {
+    normalize();
+    const target = index < 0 ? 0 : index >= count ? count + 1 : index + 1;
+    update(target);
+    position(target, smooth);
+    if (!smooth || reducedMotion.matches) normalize();
   }
   previous.addEventListener('click', () => go(current - 1));
   next.addEventListener('click', () => go(current + 1));
   dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)));
   track.addEventListener('keydown', event => {
     if (event.target !== track) return;
-    const index = {ArrowLeft: current - 1, ArrowRight: current + 1, Home: 0, End: slides.length - 1}[event.key];
+    const index = {ArrowLeft: current - 1, ArrowRight: current + 1, Home: 0, End: count - 1}[event.key];
     if (index !== undefined) { event.preventDefault(); go(index); }
   });
-  let scrollFrame;
   track.addEventListener('scroll', () => {
+    clearTimeout(settling);
     cancelAnimationFrame(scrollFrame);
     scrollFrame = requestAnimationFrame(() => {
       const center = track.scrollLeft + track.clientWidth / 2;
       const distances = slides.map(slide => Math.abs(slide.offsetLeft + slide.offsetWidth / 2 - center));
       update(distances.indexOf(Math.min(...distances)));
+      settling = setTimeout(normalize, 180);
     });
-  }, {passive: true});
-  new ResizeObserver(() => go(current, false)).observe(track);
-  update(0);
+  }, {passive:true});
+  track.addEventListener('scrollend', normalize);
+  new ResizeObserver(() => { update(current + 1); position(current + 1, false); }).observe(track);
+  update(1);
+  position(1, false);
 }
 
 window.addEventListener('message',event=>{const frame=document.getElementById('touch-interactive');if(frame&&event.origin===location.origin&&event.source===frame.contentWindow&&event.data?.type==='panotac-touch-height'&&Number.isFinite(event.data.height)){frame.style.height=Math.max(200,Math.min(1800,event.data.height))+'px';}});
