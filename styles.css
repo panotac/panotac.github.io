@@ -190,3 +190,5 @@ h1#paper-title{text-wrap:initial}
 .collection-video figcaption{font:600 var(--type-4)/1.6 var(--sans);text-align:left;color:var(--muted)}
 
 .collection-sound-note{font:400 var(--type-4)/1.6 var(--sans);color:var(--muted)}
+
+.hardware-overview .hero-statement{font:600 var(--type-4)/1.6 var(--sans);letter-spacing:0;color:var(--muted);margin:12px auto 10px}
