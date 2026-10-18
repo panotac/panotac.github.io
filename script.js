@@ -183,19 +183,42 @@ for (const carousel of document.querySelectorAll('[data-carousel]')) {
 
 window.addEventListener('message',event=>{const frame=document.getElementById('touch-interactive');if(frame&&event.origin===location.origin&&event.source===frame.contentWindow&&event.data?.type==='panotac-touch-height'&&Number.isFinite(event.data.height)){frame.style.height=Math.max(200,Math.min(1800,event.data.height))+'px';}});
 
-// Match the reference: section activation at 20% of the viewport height.
-const navDots = [...document.querySelectorAll('.section-dots a')];
-function setActiveSection(id) {
-  for (const link of navDots) {
-    if (link.hash === '#' + id) link.setAttribute('aria-current', 'location');
-    else link.removeAttribute('aria-current');
+// Track both chapters and their visible subsections at the reading position.
+const toc = document.querySelector('.page-toc');
+const tocToggle = document.querySelector('.toc-toggle');
+const tocGroups = [...toc.querySelectorAll('[data-section]')];
+const tocLinks = [...toc.querySelectorAll('a')];
+function updateToc() {
+  const readingLine = Math.min(180, window.innerHeight * .25);
+  let active = tocGroups[0];
+  for (const group of tocGroups) {
+    if (document.getElementById(group.dataset.section).getBoundingClientRect().top <= readingLine) active = group;
   }
+  let current = active.querySelector('a');
+  for (const link of active.querySelectorAll('ul a')) {
+    if (document.querySelector(link.hash).getBoundingClientRect().top <= readingLine) current = link;
+  }
+  tocGroups.forEach(group => group.classList.toggle('is-active', group === active));
+  tocLinks.forEach(link => {
+    if (link === current) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
 }
-setActiveSection('intro');
-const sectionObserver = new IntersectionObserver(entries => {
-  for (const entry of entries) if (entry.isIntersecting) setActiveSection(entry.target.id);
-}, {root:null, rootMargin:'-20% 0px -80% 0px', threshold:0});
-navDots.forEach(link => sectionObserver.observe(document.querySelector(link.hash)));
+let tocScheduled = false;
+window.addEventListener('scroll', () => {
+  if (!tocScheduled) { tocScheduled = true; requestAnimationFrame(() => { updateToc(); tocScheduled = false; }); }
+}, {passive:true});
+window.addEventListener('resize', updateToc);
+window.addEventListener('load', updateToc);
+updateToc();
+function closeToc() { toc.classList.remove('is-open'); tocToggle.setAttribute('aria-expanded','false'); tocToggle.setAttribute('aria-label','Show table of contents'); }
+tocToggle.addEventListener('click', () => {
+  const open = tocToggle.getAttribute('aria-expanded') !== 'true';
+  tocToggle.setAttribute('aria-expanded', String(open)); tocToggle.setAttribute('aria-label',open ? 'Hide table of contents' : 'Show table of contents'); toc.classList.toggle('is-open',open);
+});
+tocLinks.forEach(link => link.addEventListener('click',closeToc));
+document.addEventListener('click', event => { if (!toc.contains(event.target) && !tocToggle.contains(event.target)) closeToc(); });
+document.addEventListener('keydown', event => { if (event.key === 'Escape' && toc.classList.contains('is-open')) { closeToc(); tocToggle.focus(); } });
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.getElementById('nav-menu');
 function closeNavMenu() { navToggle.setAttribute('aria-expanded','false'); navMenu.classList.remove('is-open'); }

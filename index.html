@@ -23,12 +23,26 @@
     <div class="nav-links" id="nav-menu"><a href="#sensor">Sensor</a><a href="#manipulation">Manipulation</a><a href="#failures">Failure modes</a><a href="#results">Results</a></div>
   </nav>
 </header>
-<nav class="section-dots" aria-label="Section navigation">
-  <a href="#intro" aria-label="Intro"><span>Intro</span></a>
-  <a href="#sensor" aria-label="Sensor"><span>Sensor</span></a>
-  <a href="#manipulation" aria-label="Manipulation"><span>Manipulation</span></a>
-  <a href="#failures" aria-label="Failure modes"><span>Failure modes</span></a>
-  <a href="#results" aria-label="Results"><span>Results</span></a>
+<button class="toc-toggle" type="button" aria-controls="page-toc" aria-expanded="false" aria-label="Show table of contents"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>
+<nav class="page-toc" id="page-toc" aria-label="On this page">
+  <p class="toc-heading">On this page</p>
+  <ul class="toc-sections">
+    <li data-section="intro"><a href="#intro">Overview</a></li>
+    <li data-section="sensor"><a href="#sensor">Our Tactile Hardware</a><ul>
+      <li><a href="#hardware-build">Design &amp; Assembly</a></li>
+      <li><a href="#hardware-feedback">Tactile Signal Construction</a></li>
+      <li><a href="#interactive-title">Interactive Visualization</a></li>
+    </ul></li>
+    <li data-section="data-collection"><a href="#data-collection">Data Collection</a></li>
+    <li data-section="manipulation"><a href="#manipulation">Capability Experiments</a><ul>
+      <li><a href="#tube-panel">Test Tube Preparation</a></li>
+      <li><a href="#grain-panel">Grain Scooping</a></li>
+      <li><a href="#salt-panel">Salt Pouring</a></li>
+    </ul></li>
+    <li data-section="failures"><a href="#failures">Failure Modes</a></li>
+    <li data-section="results"><a href="#results">Experiment Results</a></li>
+    <li data-section="bonus-task"><a href="#bonus-task">Bonus Task</a></li>
+  </ul>
 </nav>
 <main id="main">
   <section id="intro" class="intro section-shell" aria-labelledby="paper-title">
@@ -150,6 +164,13 @@
 
   <section id="characterization" class="section-shell characterization-section" aria-label="Sensor characterization">
     <figure class="signal-figure"><img src="assets/images/signal-construction.png?v=arxiv-figure-v7" alt="Indentation experiment setup and normal and shear response curves comparing three PanoTac sensors." loading="lazy"><figcaption>Sensor characterization: experimental setup and consistent normal and shear responses across three sensors.</figcaption></figure>
+  </section>
+  <section id="bonus-task" class="section-shell chapter" aria-labelledby="bonus-title">
+    <div class="section-heading"><h2 id="bonus-title">06 / Bonus Task</h2></div>
+    <figure class="bonus-video">
+      <div class="video-frame"><video controls muted loop playsinline preload="metadata" poster="assets/images/bonus-task.jpg" aria-label="PanoTac bonus task: pouring water of unseen colors and couscous"><source src="assets/videos/bonus-task.mp4?v=seek-v2" type="video/mp4"></video></div>
+      <figcaption>We pour a slightly more dangerous material: water. Humans can often tell whether a bottle is empty just by lifting it. With PanoTac, our robot gains the same capability. The policy also generalizes to unseen water colors and to couscous, despite its different density and pouring behavior.</figcaption>
+    </figure>
   </section>
 </main>
 <footer class="site-footer section-shell"><a class="wordmark" href="#intro">PanoTac<span aria-hidden="true">.</span></a><p>Anonymous Authors</p><a class="text-link" href="#intro">Back to top ↑</a></footer>
