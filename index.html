@@ -14,6 +14,12 @@
 <link rel="stylesheet" href="styles.css?v=white-background-v2">
   <script src="script.js?v=carousel-loop-v1" defer></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <style>
+    .summary-video{padding-bottom:68px}
+    .summary-video .section-heading{margin-bottom:23px}
+    .summary-video iframe{display:block;width:100%;height:auto;aspect-ratio:1800/1012;border:0;border-radius:inherit}
+    @media(max-width:640px){.summary-video{padding-bottom:45px}}
+  </style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -29,6 +35,7 @@
   <p class="toc-heading">On this page</p>
   <ul class="toc-sections">
     <li data-section="intro"><a href="#intro">Overview</a></li>
+    <li data-section="summary-video"><a href="#summary-video">Summary Video</a></li>
     <li data-section="sensor"><a href="#sensor">Our Tactile Hardware</a><ul>
       <li><a href="#hardware-build">Design &amp; Assembly</a></li>
       <li><a href="#hardware-feedback">Tactile Signal Construction</a></li>
@@ -72,6 +79,13 @@
 
   <section class="abstract section-shell" aria-labelledby="abstract-title">
     <div class="reading-column"><h2 id="abstract-title">Abstract</h2><p>Humans rely on vision and touch to manipulate everyday objects, using tactile feedback to determine how an interaction should proceed. When scooping grains, feeling the handle’s shape helps us infer spoon orientation, while resistance transmitted through the grasp guides our motion. These decisions depend on two essential aspects of touch: <strong>detailed contact geometry</strong> and <strong>interaction shear forces</strong>. To bring these sensing capabilities to robots, we present <strong>PanoTac</strong>, a low-cost, compliant tactile fingertip designed for dense three-axis tactile sensing. Each finger provides a 12 × 32 taxel grid, with each taxel representing three components: normal (z) and shear (x, y). Sensor characterization quantifies response repeatability and consistency across sensor instances and contact locations. We integrate PanoTac into a robotic system with a visuo-tactile learning pipeline. Across test tube preparation, grain scooping, and salt pouring, the resulting policies outperform vision-only baselines by an average of <strong>46.7 percentage points</strong>. Ablations show that removing either spatial contact information or load feedback reduces overall performance across the task suite.</p></div>
+  </section>
+
+  <section id="summary-video" class="summary-video section-shell" aria-labelledby="summary-video-title">
+    <div class="section-heading"><h2 id="summary-video-title">Summary Video</h2></div>
+    <div class="video-frame">
+      <iframe src="https://www.youtube.com/embed/iAQ2PVpR400" title="PanoTac — Summary Video" width="1800" height="1012" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
   </section>
 
   <section id="sensor" class="section-shell chapter" aria-labelledby="sensor-title">
@@ -194,3 +208,4 @@
 <footer class="site-footer section-shell"><a class="wordmark" href="#intro">PanoTac<span aria-hidden="true">.</span></a><p>PanoTac Authors</p><a class="text-link" href="#intro">Back to top ↑</a></footer>
 </body>
 </html>
+
