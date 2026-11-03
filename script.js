@@ -229,3 +229,13 @@ navToggle.addEventListener('click', () => {
 });
 navMenu.querySelectorAll('a').forEach(link => link.addEventListener('click',closeNavMenu));
 navMenu.addEventListener('keydown', event => { if (event.key === 'Escape') { closeNavMenu(); navToggle.focus(); } });
+
+// Show the planned release date for the upcoming code repositories.
+const releaseNote = document.getElementById('resource-release-note');
+document.querySelectorAll('button.paper-resource[data-resource]').forEach(button => {
+  button.addEventListener('click', () => {
+    const label = button.dataset.resource === 'method' ? 'Method Code' : 'Hardware Repo';
+    releaseNote.hidden = false;
+    releaseNote.textContent = `${label}: Coming by the end of November 2026.`;
+  });
+});

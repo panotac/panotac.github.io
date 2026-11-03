@@ -273,3 +273,7 @@ h1#paper-title{text-wrap:initial}
 .teaser-intro{font-size:28px}
 .teaser-demo-label{font-size:var(--type-4)}
 @media(max-width:640px){.teaser-intro{font-size:24px}}
+
+button.paper-resource{cursor:pointer}
+button.paper-resource:hover{background:var(--purple);border-color:var(--purple)}
+button.paper-resource:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
