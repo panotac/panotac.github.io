@@ -230,28 +230,20 @@ navToggle.addEventListener('click', () => {
 navMenu.querySelectorAll('a').forEach(link => link.addEventListener('click',closeNavMenu));
 navMenu.addEventListener('keydown', event => { if (event.key === 'Escape') { closeNavMenu(); navToggle.focus(); } });
 
-// Briefly show the planned release date for the upcoming repositories.
-const releaseNote = document.getElementById('resource-release-note');
-let releaseNoteTimer;
-let activeResourceButton;
-function hideReleaseNote() {
-  clearTimeout(releaseNoteTimer);
-  releaseNote.hidden = true;
-  releaseNote.textContent = '';
-  activeResourceButton = null;
-}
+// Temporarily show availability inside each repository button.
 document.querySelectorAll('button.paper-resource[data-resource]').forEach(button => {
+  const label = button.querySelector('span');
+  const originalLabel = label.textContent;
+  let restoreTimer;
   button.addEventListener('click', () => {
-    if (activeResourceButton === button) { hideReleaseNote(); return; }
-    clearTimeout(releaseNoteTimer);
-    activeResourceButton = button;
-    const label = button.dataset.resource === 'method' ? 'Method Code' : 'Hardware Repo';
-    releaseNote.textContent = `${label}: Coming by the end of November 2026.`;
-    releaseNote.hidden = false;
-    releaseNoteTimer = setTimeout(hideReleaseNote, 4000);
+    clearTimeout(restoreTimer);
+    if (label.textContent === originalLabel) {
+      button.style.width = `${button.getBoundingClientRect().width}px`;
+    }
+    label.textContent = 'Coming soon';
+    restoreTimer = setTimeout(() => {
+      label.textContent = originalLabel;
+      button.style.width = '';
+    }, 4000);
   });
 });
-document.addEventListener('click', event => {
-  if (activeResourceButton && !activeResourceButton.contains(event.target) && !releaseNote.contains(event.target)) hideReleaseNote();
-});
-document.addEventListener('keydown', event => { if (event.key === 'Escape') hideReleaseNote(); });
